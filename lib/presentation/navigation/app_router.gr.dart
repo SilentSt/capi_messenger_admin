@@ -40,6 +40,15 @@ class _$AppRouter extends RootStackRouter {
         barrierDismissible: false,
       );
     },
+    HomeViewRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+        routeData: routeData,
+        child: const HomeView(),
+        transitionsBuilder: fadeInTransition,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
   };
 
   @override
@@ -52,6 +61,20 @@ class _$AppRouter extends RootStackRouter {
           RootViewRoute.name,
           path: '/',
           guards: [authGuard],
+          children: [
+            RouteConfig(
+              '#redirect',
+              path: '',
+              parent: RootViewRoute.name,
+              redirectTo: 'home',
+              fullMatch: true,
+            ),
+            RouteConfig(
+              HomeViewRoute.name,
+              path: 'home',
+              parent: RootViewRoute.name,
+            ),
+          ],
         ),
       ];
 }
@@ -71,11 +94,24 @@ class AuthViewRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [RootView]
 class RootViewRoute extends PageRouteInfo<void> {
-  const RootViewRoute()
+  const RootViewRoute({List<PageRouteInfo>? children})
       : super(
           RootViewRoute.name,
           path: '/',
+          initialChildren: children,
         );
 
   static const String name = 'RootViewRoute';
+}
+
+/// generated route for
+/// [HomeView]
+class HomeViewRoute extends PageRouteInfo<void> {
+  const HomeViewRoute()
+      : super(
+          HomeViewRoute.name,
+          path: 'home',
+        );
+
+  static const String name = 'HomeViewRoute';
 }

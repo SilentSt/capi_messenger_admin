@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -21,7 +22,7 @@ class RootView extends StatelessWidget {
         viewModelBuilder: () => RootViewModel(),
         onModelReady: (model) => model.onReady(),
         builder: (context, model, child) {
-          return Scaffold();
+          return AutoRouter();
         },
       ),
     );
