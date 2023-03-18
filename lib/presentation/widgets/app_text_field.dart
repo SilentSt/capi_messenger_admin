@@ -13,6 +13,7 @@ class AppTextField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.height = 60,
     this.onEnterText,
+    this.hint = '',
   }) : super(key: key);
 
   final String title;
@@ -24,6 +25,7 @@ class AppTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final double height;
   final VoidCallback? onEnterText;
+  final String? hint;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -45,6 +47,7 @@ class _AppTextFieldState extends State<AppTextField> {
           }
         },
         decoration: InputDecoration(
+          hintText: widget.hint,
           labelText: widget.title,
           suffixIcon: widget.obscure
               ? isObscured
