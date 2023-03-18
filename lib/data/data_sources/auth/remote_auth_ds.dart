@@ -3,14 +3,47 @@ import 'package:template/data/models/models.dart';
 
 part 'remote_auth_ds.chopper.dart';
 
-@ChopperApi(baseUrl: 'security/') //TODO: change url
-abstract class RemoteAuthDataSource extends ChopperService{
+@ChopperApi(baseUrl: 'auth/')
+abstract class RemoteAuthDataSource extends ChopperService {
   static RemoteAuthDataSource create([ChopperClient? client]) =>
       _$RemoteAuthDataSource(client);
 
-  @Post(path: 'signIn')
-  Future<Response<AuthResultModel>> signIn(@Body() final SignInDto dto);
+  @FactoryConverter(
+    request: FormUrlEncodedConverter.requestFactory,
+  )
+  @Post(
+    path: 'login',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  )
+  @Multipart()
+  Future<Response<SignInModel>> signIn(
+    @Part('phone') String phone,
+    @Part('password') String password,
+  );
 
-  @Post(path: 'signUp')
-  Future<Response<AuthResultModel>> signUp(@Body() final SignUpDto dto);
+  @FactoryConverter(
+    request: FormUrlEncodedConverter.requestFactory,
+  )
+  @Post(
+    path: 'login/verify',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  )
+  @Multipart()
+  Future<Response<VerifyModel>> verify({
+    @Part('code') required String code,
+    @Part('session_id') required String session,
+  });
+
+  @Post(path: 'register')
+  Future<Response<SignUpModel>> signUp(@Body() final SignUpDto dto);
+
+  @Get(path: 'me')
+  Future<Response<MeModel>> me();
+
+  @Get(path: 'sessions')
+  Future<Response<SessionModel>> sessions();
 }
