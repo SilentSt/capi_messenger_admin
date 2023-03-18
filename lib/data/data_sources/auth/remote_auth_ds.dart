@@ -42,7 +42,7 @@ abstract class RemoteAuthDataSource extends ChopperService {
   Future<Response<SignUpModel>> signUp(@Body() final SignUpDto dto);
 
   @Get(path: 'me')
-  Future<Response<MeModel>> me();
+  Future<Response<dynamic>> me();
 
   @Get(path: 'sessions')
   Future<Response<SessionModel>> sessions();

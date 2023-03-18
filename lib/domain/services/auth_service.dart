@@ -20,6 +20,7 @@ class AuthService extends AppService {
 
   @override
   Future<void> init() async {
+    LocalAuthDataSourceImpl.currentState.value = AuthState.authorized;
     LocalAuthDataSourceImpl.currentState.addListener(authListener);
     await _lds.init();
   }
@@ -38,25 +39,58 @@ class AuthService extends AppService {
     }
   }
 
-  Future<void> signin({required SignInDto dto, bool saveData = false}) async {
-    final res = await _rds.signIn(dto);
-    if (!res.isSuccessful || res.body?.token == null) {
-      await dialogService.showError();
-      return;
+  Future<String?> signin({
+    required SignInDto dto,
+    bool saveData = false,
+  }) async {
+    final res = await _rds.signIn(
+      dto.phone,
+      dto.password,
+    );
+    if (!res.isSuccessful || res.body?.result?.session == null) {
+      await dialogService.showError(
+        text: '${res.statusCode}',
+      );
     }
     if (saveData) {
       await _lds.storeLoginDto(dto);
     }
-    await _lds.storeSession(res.body!.token);
+    return res.body?.result?.session;
   }
 
-  Future<void> signup(SignUpDto dto) async {
-    final res = await _rds.signUp(dto);
-    if (!res.isSuccessful || res.body?.token == null) {
-      await dialogService.showError();
+  Future<void> verify({
+    required VerifyDto dto,
+  }) async {
+    final res = await _rds.verify(code: dto.code, session: dto.sessionId);
+    if (!res.isSuccessful || res.body?.accessToken == null) {
+      await dialogService.showBackendError(error: res.body?.error);
       return;
     }
-    await _lds.storeSession(res.body!.token);
+    _lds.storeSession(res.body?.accessToken ?? '');
+  }
+
+  Future<bool> signup(SignUpDto dto) async {
+    final res = await _rds.signUp(dto);
+    if (!res.isSuccessful) {
+      await dialogService.showBackendError(error: res.body?.error);
+    }
+    return res.isSuccessful;
+  }
+
+  Future<dynamic?> me() async {
+    final res = await _rds.me();
+    if (!res.isSuccessful || res.body?.result == null) {
+      await dialogService.showBackendError(error: res.body?.error);
+    }
+    return res.body?.result;
+  }  
+
+  Future<SessionModel?> sessions() async {
+    final res = await _rds.sessions();
+    if (!res.isSuccessful || res.body?.result == null) {
+      await dialogService.showBackendError(error: res.body?.error);
+    }
+    return res.body;
   }
 
   Future<void> logout() async {

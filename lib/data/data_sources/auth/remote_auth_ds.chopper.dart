@@ -17,7 +17,7 @@ class _$RemoteAuthDataSource extends RemoteAuthDataSource {
   final definitionType = RemoteAuthDataSource;
 
   @override
-  Future<Response<dynamic>> signIn(
+  Future<Response<SignInModel>> signIn(
     String phone,
     String password,
   ) {
@@ -43,14 +43,14 @@ class _$RemoteAuthDataSource extends RemoteAuthDataSource {
       multipart: true,
       headers: $headers,
     );
-    return client.send<dynamic, dynamic>(
+    return client.send<SignInModel, SignInModel>(
       $request,
       requestConverter: FormUrlEncodedConverter.requestFactory,
     );
   }
 
   @override
-  Future<Response<dynamic>> verify({
+  Future<Response<VerifyModel>> verify({
     required String code,
     required String session,
   }) {
@@ -76,14 +76,14 @@ class _$RemoteAuthDataSource extends RemoteAuthDataSource {
       multipart: true,
       headers: $headers,
     );
-    return client.send<dynamic, dynamic>(
+    return client.send<VerifyModel, VerifyModel>(
       $request,
       requestConverter: FormUrlEncodedConverter.requestFactory,
     );
   }
 
   @override
-  Future<Response<dynamic>> signUp(dynamic dto) {
+  Future<Response<SignUpModel>> signUp(SignUpDto dto) {
     final Uri $url = Uri.parse('auth/register');
     final $body = dto;
     final Request $request = Request(
@@ -92,7 +92,7 @@ class _$RemoteAuthDataSource extends RemoteAuthDataSource {
       client.baseUrl,
       body: $body,
     );
-    return client.send<dynamic, dynamic>($request);
+    return client.send<SignUpModel, SignUpModel>($request);
   }
 
   @override
@@ -107,13 +107,13 @@ class _$RemoteAuthDataSource extends RemoteAuthDataSource {
   }
 
   @override
-  Future<Response<dynamic>> sessions() {
+  Future<Response<SessionModel>> sessions() {
     final Uri $url = Uri.parse('auth/sessions');
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
     );
-    return client.send<dynamic, dynamic>($request);
+    return client.send<SessionModel, SessionModel>($request);
   }
 }

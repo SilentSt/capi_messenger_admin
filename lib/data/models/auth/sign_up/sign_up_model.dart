@@ -8,7 +8,7 @@ class SignUpModel extends CoreModel {
     required super.status,
     required super.code,
     required super.error,
-    this.result,
+    //this.result,
   });
-  final UserResult? result;
+  //final UserResult? result;
 }

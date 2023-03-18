@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:template/domain/di/global_dependency.dart';
+import 'package:template/presentation/screens/auth/widgets/sign_in_widget.dart';
+import 'package:template/presentation/screens/auth/widgets/sign_up_widget.dart';
 
 import 'auth_vm.dart';
 
@@ -13,9 +15,17 @@ class AuthView extends StatelessWidget {
       viewModelBuilder: () => AuthViewModel(
         authService: context.global.authService,
       ),
-      onModelReady: (model) => model.onReady(),
+      onViewModelReady: (viewModel) => viewModel.onReady(),
       builder: (context, model, child) {
-        return Scaffold();
+        return Scaffold(
+          body: PageView(
+            controller: model.stateController,
+            children: const [
+              SignInWidget(),
+              SignUpWidget(),
+            ],
+          ),
+        );
       },
     );
   }

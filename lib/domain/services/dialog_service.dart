@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:template/data/models/models.dart';
 import 'package:template/presentation/theme/app_typography.dart';
 
 class DialogService {
@@ -19,6 +20,31 @@ class DialogService {
         ),
         content: Text(
           text ?? 'Неизвестная ошибка',
+          style: AppTypography.sf.s14.w500.black,
+        ),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () => Navigator.of(context).pop(),
+            isDefaultAction: true,
+            child: const Text('Окей'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> showBackendError({
+    CoreError? error,
+  }) async {
+    return await showCupertinoDialog(
+      context: _context,
+      builder: (context) => CupertinoAlertDialog(
+        title: Text(
+          error?.message ?? 'Ошибка',
+          style: AppTypography.sf.s18.w600.red,
+        ),
+        content: Text(
+          error?.exception?.exception ?? 'Неизвестная ошибка',
           style: AppTypography.sf.s14.w500.black,
         ),
         actions: [
@@ -65,6 +91,7 @@ class DialogService {
     required Widget Function(BuildContext context) builder,
   }) async {
     return await showCupertinoDialog(
+      barrierDismissible: true,
       context: _context,
       builder: builder,
     );
