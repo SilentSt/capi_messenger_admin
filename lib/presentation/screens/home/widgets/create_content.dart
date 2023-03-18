@@ -10,7 +10,14 @@ import 'package:template/presentation/widgets/app_text_button.dart';
 import 'package:template/presentation/widgets/app_text_field.dart';
 
 class CreateContent extends StatefulWidget {
-  const CreateContent({Key? key}) : super(key: key);
+  const CreateContent({Key? key, required this.create}) : super(key: key);
+
+  final Function({
+    required String title,
+    required String description,
+    required String content,
+    required Uint8List bytes,
+  }) create;
 
   @override
   _CreateContentState createState() => _CreateContentState();
@@ -138,7 +145,17 @@ class _CreateContentState extends State<CreateContent> {
                 Expanded(
                   flex: 1,
                   child: AppTextButton(
-                    onTap: () {},
+                    onTap: () {
+                      if (bytes == null) return;
+
+                      widget.create(
+                        content: content.text,
+                        title: title.text.trim(),
+                        description: description.text.trim(),
+                        bytes: bytes!,
+                      );
+                      Navigator.pop(context);
+                    },
                     text: 'Сохранить',
                     textStyle: AppTypography.sf.green.s20.w500,
                   ),
@@ -146,13 +163,14 @@ class _CreateContentState extends State<CreateContent> {
                 Expanded(
                   flex: 1,
                   child: AppTextButton(
-                    onTap: () {},
+                    onTap: () => Navigator.pop(context),
                     text: 'Отмена',
                     textStyle: AppTypography.sf.red.s20.w500,
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 10),
           ],
         ),
       ),

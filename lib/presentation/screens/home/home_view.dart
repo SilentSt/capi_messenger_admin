@@ -27,9 +27,10 @@ class HomeView extends StatelessWidget {
             actions: [
               CupertinoButton(
                 onPressed: () async {
-                  final res = await context.global.errorService.showCallbackDialog(
+                  final res =
+                      await context.global.errorService.showCallbackDialog(
                     builder: (context) {
-                      return const CreateContent();
+                      return CreateContent(create: viewModel.create);
                     },
                   );
                 },
