@@ -15,6 +15,9 @@ import 'core/core_error.dart';
 import 'core/core_exception.dart';
 import 'core/core_model.dart';
 import 'core/core_status.dart';
+import 'dashboard/dash_content_model.dart';
+import 'dashboard/dash_content_result.dart';
+import 'dashboard/dash_contents_model.dart';
 
 
 // === ALL STATICALLY REGISTERED MAPPERS ===
@@ -24,6 +27,9 @@ var _mappers = <BaseMapper>{
   CoreErrorMapper._(),
   CoreExceptionMapper._(),
   CoreModelMapper._(),
+  DashContentResultMapper._(),
+  DashContentModelMapper._(),
+  DashsContentModelMapper._(),
   SignInDtoMapper._(),
   SignInModelMapper._(),
   SignInResultMapper._(),
@@ -125,7 +131,9 @@ class CoreModelMapper extends BaseMapper<CoreModel> {
 
   @override Function get encoder => (CoreModel v) => encode(v);
   dynamic encode(CoreModel v) {
-    if (v is SignInModel) { return SignInModelMapper._().encode(v); }
+    if (v is DashContentModel) { return DashContentModelMapper._().encode(v); }
+    else if (v is DashsContentModel) { return DashsContentModelMapper._().encode(v); }
+    else if (v is SignInModel) { return SignInModelMapper._().encode(v); }
     else if (v is SignUpModel) { return SignUpModelMapper._().encode(v); }
     else if (v is VerifyModel) { return VerifyModelMapper._().encode(v); }
     else if (v is SessionModel) { return SessionModelMapper._().encode(v); }
@@ -143,6 +151,122 @@ class CoreModelMapper extends BaseMapper<CoreModel> {
 extension CoreModelMapperExtension  on CoreModel {
   String toJson() => Mapper.toJson(this);
   Map<String, dynamic> toMap() => Mapper.toMap(this);
+}
+
+class DashContentResultMapper extends BaseMapper<DashContentResult> {
+  DashContentResultMapper._();
+
+  @override Function get decoder => decode;
+  DashContentResult decode(dynamic v) => checked(v, (Map<String, dynamic> map) => fromMap(map));
+  DashContentResult fromMap(Map<String, dynamic> map) => DashContentResult(id: Mapper.i.$getOpt(map, 'id'), title: Mapper.i.$getOpt(map, 'title'), description: Mapper.i.$getOpt(map, 'description'), content: Mapper.i.$getOpt(map, 'content'), authorId: Mapper.i.$getOpt(map, 'authorId'), previewId: Mapper.i.$getOpt(map, 'previewId'));
+
+  @override Function get encoder => (DashContentResult v) => encode(v);
+  dynamic encode(DashContentResult v) => toMap(v);
+  Map<String, dynamic> toMap(DashContentResult d) => {if (Mapper.i.$enc(d.id, 'id') != null) 'id': Mapper.i.$enc(d.id, 'id'), if (Mapper.i.$enc(d.title, 'title') != null) 'title': Mapper.i.$enc(d.title, 'title'), if (Mapper.i.$enc(d.description, 'description') != null) 'description': Mapper.i.$enc(d.description, 'description'), if (Mapper.i.$enc(d.content, 'content') != null) 'content': Mapper.i.$enc(d.content, 'content'), if (Mapper.i.$enc(d.authorId, 'authorId') != null) 'authorId': Mapper.i.$enc(d.authorId, 'authorId'), if (Mapper.i.$enc(d.previewId, 'previewId') != null) 'previewId': Mapper.i.$enc(d.previewId, 'previewId')};
+
+  @override String stringify(DashContentResult self) => 'DashContentResult(id: ${Mapper.asString(self.id)}, title: ${Mapper.asString(self.title)}, description: ${Mapper.asString(self.description)}, content: ${Mapper.asString(self.content)}, authorId: ${Mapper.asString(self.authorId)}, previewId: ${Mapper.asString(self.previewId)})';
+  @override int hash(DashContentResult self) => Mapper.hash(self.id) ^ Mapper.hash(self.title) ^ Mapper.hash(self.description) ^ Mapper.hash(self.content) ^ Mapper.hash(self.authorId) ^ Mapper.hash(self.previewId);
+  @override bool equals(DashContentResult self, DashContentResult other) => Mapper.isEqual(self.id, other.id) && Mapper.isEqual(self.title, other.title) && Mapper.isEqual(self.description, other.description) && Mapper.isEqual(self.content, other.content) && Mapper.isEqual(self.authorId, other.authorId) && Mapper.isEqual(self.previewId, other.previewId);
+
+  @override Function get typeFactory => (f) => f<DashContentResult>();
+}
+
+extension DashContentResultMapperExtension  on DashContentResult {
+  String toJson() => Mapper.toJson(this);
+  Map<String, dynamic> toMap() => Mapper.toMap(this);
+  DashContentResultCopyWith<DashContentResult> get copyWith => DashContentResultCopyWith(this, $identity);
+}
+
+abstract class DashContentResultCopyWith<$R> {
+  factory DashContentResultCopyWith(DashContentResult value, Then<DashContentResult, $R> then) = _DashContentResultCopyWithImpl<$R>;
+  $R call({String? id, String? title, String? description, String? content, String? authorId, String? previewId});
+  $R apply(DashContentResult Function(DashContentResult) transform);
+}
+
+class _DashContentResultCopyWithImpl<$R> extends BaseCopyWith<DashContentResult, $R> implements DashContentResultCopyWith<$R> {
+  _DashContentResultCopyWithImpl(DashContentResult value, Then<DashContentResult, $R> then) : super(value, then);
+
+  @override $R call({Object? id = $none, Object? title = $none, Object? description = $none, Object? content = $none, Object? authorId = $none, Object? previewId = $none}) => $then(DashContentResult(id: or(id, $value.id), title: or(title, $value.title), description: or(description, $value.description), content: or(content, $value.content), authorId: or(authorId, $value.authorId), previewId: or(previewId, $value.previewId)));
+}
+
+class DashContentModelMapper extends BaseMapper<DashContentModel> {
+  DashContentModelMapper._();
+
+  @override Function get decoder => decode;
+  DashContentModel decode(dynamic v) => checked(v, (Map<String, dynamic> map) => fromMap(map));
+  DashContentModel fromMap(Map<String, dynamic> map) => DashContentModel(status: Mapper.i.$getOpt(map, 'status'), code: Mapper.i.$getOpt(map, 'code'), error: Mapper.i.$getOpt(map, 'error'), result: Mapper.i.$getOpt(map, 'result'));
+
+  @override Function get encoder => (DashContentModel v) => encode(v);
+  dynamic encode(DashContentModel v) => toMap(v);
+  Map<String, dynamic> toMap(DashContentModel d) => {'status': Mapper.i.$enc(d.status, 'status'), 'code': Mapper.i.$enc(d.code, 'code'), 'error': Mapper.i.$enc(d.error, 'error'), 'result': Mapper.i.$enc(d.result, 'result')};
+
+  @override String stringify(DashContentModel self) => 'DashContentModel(status: ${Mapper.asString(self.status)}, code: ${Mapper.asString(self.code)}, error: ${Mapper.asString(self.error)}, result: ${Mapper.asString(self.result)})';
+  @override int hash(DashContentModel self) => Mapper.hash(self.status) ^ Mapper.hash(self.code) ^ Mapper.hash(self.error) ^ Mapper.hash(self.result);
+  @override bool equals(DashContentModel self, DashContentModel other) => Mapper.isEqual(self.status, other.status) && Mapper.isEqual(self.code, other.code) && Mapper.isEqual(self.error, other.error) && Mapper.isEqual(self.result, other.result);
+
+  @override Function get typeFactory => (f) => f<DashContentModel>();
+}
+
+extension DashContentModelMapperExtension  on DashContentModel {
+  String toJson() => Mapper.toJson(this);
+  Map<String, dynamic> toMap() => Mapper.toMap(this);
+  DashContentModelCopyWith<DashContentModel> get copyWith => DashContentModelCopyWith(this, $identity);
+}
+
+abstract class DashContentModelCopyWith<$R> {
+  factory DashContentModelCopyWith(DashContentModel value, Then<DashContentModel, $R> then) = _DashContentModelCopyWithImpl<$R>;
+  CoreErrorCopyWith<$R>? get error;
+  DashContentResultCopyWith<$R>? get result;
+  $R call({bool? status, int? code, CoreError? error, DashContentResult? result});
+  $R apply(DashContentModel Function(DashContentModel) transform);
+}
+
+class _DashContentModelCopyWithImpl<$R> extends BaseCopyWith<DashContentModel, $R> implements DashContentModelCopyWith<$R> {
+  _DashContentModelCopyWithImpl(DashContentModel value, Then<DashContentModel, $R> then) : super(value, then);
+
+  @override CoreErrorCopyWith<$R>? get error => $value.error != null ? CoreErrorCopyWith($value.error!, (v) => call(error: v)) : null;
+  @override DashContentResultCopyWith<$R>? get result => $value.result != null ? DashContentResultCopyWith($value.result!, (v) => call(result: v)) : null;
+  @override $R call({Object? status = $none, Object? code = $none, Object? error = $none, Object? result = $none}) => $then(DashContentModel(status: or(status, $value.status), code: or(code, $value.code), error: or(error, $value.error), result: or(result, $value.result)));
+}
+
+class DashsContentModelMapper extends BaseMapper<DashsContentModel> {
+  DashsContentModelMapper._();
+
+  @override Function get decoder => decode;
+  DashsContentModel decode(dynamic v) => checked(v, (Map<String, dynamic> map) => fromMap(map));
+  DashsContentModel fromMap(Map<String, dynamic> map) => DashsContentModel(status: Mapper.i.$getOpt(map, 'status'), code: Mapper.i.$getOpt(map, 'code'), error: Mapper.i.$getOpt(map, 'error'), result: Mapper.i.$getOpt(map, 'result') ?? const []);
+
+  @override Function get encoder => (DashsContentModel v) => encode(v);
+  dynamic encode(DashsContentModel v) => toMap(v);
+  Map<String, dynamic> toMap(DashsContentModel d) => {'status': Mapper.i.$enc(d.status, 'status'), 'code': Mapper.i.$enc(d.code, 'code'), 'error': Mapper.i.$enc(d.error, 'error'), 'result': Mapper.i.$enc(d.result, 'result')};
+
+  @override String stringify(DashsContentModel self) => 'DashsContentModel(status: ${Mapper.asString(self.status)}, code: ${Mapper.asString(self.code)}, error: ${Mapper.asString(self.error)}, result: ${Mapper.asString(self.result)})';
+  @override int hash(DashsContentModel self) => Mapper.hash(self.status) ^ Mapper.hash(self.code) ^ Mapper.hash(self.error) ^ Mapper.hash(self.result);
+  @override bool equals(DashsContentModel self, DashsContentModel other) => Mapper.isEqual(self.status, other.status) && Mapper.isEqual(self.code, other.code) && Mapper.isEqual(self.error, other.error) && Mapper.isEqual(self.result, other.result);
+
+  @override Function get typeFactory => (f) => f<DashsContentModel>();
+}
+
+extension DashsContentModelMapperExtension  on DashsContentModel {
+  String toJson() => Mapper.toJson(this);
+  Map<String, dynamic> toMap() => Mapper.toMap(this);
+  DashsContentModelCopyWith<DashsContentModel> get copyWith => DashsContentModelCopyWith(this, $identity);
+}
+
+abstract class DashsContentModelCopyWith<$R> {
+  factory DashsContentModelCopyWith(DashsContentModel value, Then<DashsContentModel, $R> then) = _DashsContentModelCopyWithImpl<$R>;
+  CoreErrorCopyWith<$R>? get error;
+  ListCopyWith<$R, DashContentResult, DashContentResultCopyWith<$R>> get result;
+  $R call({bool? status, int? code, CoreError? error, List<DashContentResult>? result});
+  $R apply(DashsContentModel Function(DashsContentModel) transform);
+}
+
+class _DashsContentModelCopyWithImpl<$R> extends BaseCopyWith<DashsContentModel, $R> implements DashsContentModelCopyWith<$R> {
+  _DashsContentModelCopyWithImpl(DashsContentModel value, Then<DashsContentModel, $R> then) : super(value, then);
+
+  @override CoreErrorCopyWith<$R>? get error => $value.error != null ? CoreErrorCopyWith($value.error!, (v) => call(error: v)) : null;
+  @override ListCopyWith<$R, DashContentResult, DashContentResultCopyWith<$R>> get result => ListCopyWith($value.result, (v, t) => DashContentResultCopyWith(v, t), (v) => call(result: v));
+  @override $R call({Object? status = $none, Object? code = $none, Object? error = $none, List<DashContentResult>? result}) => $then(DashsContentModel(status: or(status, $value.status), code: or(code, $value.code), error: or(error, $value.error), result: result ?? $value.result));
 }
 
 class SignInDtoMapper extends BaseMapper<SignInDto> {

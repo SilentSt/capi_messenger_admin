@@ -24,7 +24,7 @@ class PreloadDependency extends AppDependency {
       interceptors: [
         AuthInterceptor(_localAuthDS),
       ],
-      baseUrl: Uri.parse('http://test.com'),//TODO(whiskas4): change url
+      baseUrl: Uri.parse('http://sbeusilent.space:35687/'),//TODO(whiskas4): change url
       converter: JsonMappableConverter(),
     );
 

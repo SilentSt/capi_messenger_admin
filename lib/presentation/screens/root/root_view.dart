@@ -20,9 +20,9 @@ class RootView extends StatelessWidget {
       ),
       child: ViewModelBuilder<RootViewModel>.reactive(
         viewModelBuilder: () => RootViewModel(),
-        onModelReady: (model) => model.onReady(),
+        onViewModelReady: (model) => model.onReady(),
         builder: (context, model, child) {
-          return AutoRouter();
+          return const AutoRouter();
         },
       ),
     );

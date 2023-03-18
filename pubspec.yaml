@@ -60,6 +60,7 @@ dependencies:
       url: https://github.com/4Whiskas/flutter_svg-2.0.3
   file_picker: ^5.2.1
   image_picker: ^0.8.6
+  flutter_markdown: ^0.6.14
 
   #notifications
   flutter_local_notifications: ^12.0.0

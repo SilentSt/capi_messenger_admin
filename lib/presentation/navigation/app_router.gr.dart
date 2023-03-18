@@ -49,6 +49,24 @@ class _$AppRouter extends RootStackRouter {
         barrierDismissible: false,
       );
     },
+    ProductsViewRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+        routeData: routeData,
+        child: const ProductsView(),
+        transitionsBuilder: fadeInTransition,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    NewsViewRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+        routeData: routeData,
+        child: const NewsView(),
+        transitionsBuilder: fadeInTransition,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
   };
 
   @override
@@ -73,6 +91,25 @@ class _$AppRouter extends RootStackRouter {
               HomeViewRoute.name,
               path: 'home',
               parent: RootViewRoute.name,
+              children: [
+                RouteConfig(
+                  '#redirect',
+                  path: '',
+                  parent: HomeViewRoute.name,
+                  redirectTo: 'products',
+                  fullMatch: true,
+                ),
+                RouteConfig(
+                  ProductsViewRoute.name,
+                  path: 'products',
+                  parent: HomeViewRoute.name,
+                ),
+                RouteConfig(
+                  NewsViewRoute.name,
+                  path: 'news',
+                  parent: HomeViewRoute.name,
+                ),
+              ],
             ),
           ],
         ),
@@ -107,11 +144,36 @@ class RootViewRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [HomeView]
 class HomeViewRoute extends PageRouteInfo<void> {
-  const HomeViewRoute()
+  const HomeViewRoute({List<PageRouteInfo>? children})
       : super(
           HomeViewRoute.name,
           path: 'home',
+          initialChildren: children,
         );
 
   static const String name = 'HomeViewRoute';
+}
+
+/// generated route for
+/// [ProductsView]
+class ProductsViewRoute extends PageRouteInfo<void> {
+  const ProductsViewRoute()
+      : super(
+          ProductsViewRoute.name,
+          path: 'products',
+        );
+
+  static const String name = 'ProductsViewRoute';
+}
+
+/// generated route for
+/// [NewsView]
+class NewsViewRoute extends PageRouteInfo<void> {
+  const NewsViewRoute()
+      : super(
+          NewsViewRoute.name,
+          path: 'news',
+        );
+
+  static const String name = 'NewsViewRoute';
 }

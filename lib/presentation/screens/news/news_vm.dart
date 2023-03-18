@@ -2,16 +2,18 @@ import 'package:stacked/stacked.dart';
 import 'package:template/data/models/models.dart';
 import 'package:template/domain/services/dashboard_service.dart';
 
-class HomeViewModel extends BaseViewModel {
-  HomeViewModel(this.dashboardService);
+class NewsViewModel extends BaseViewModel {
+  NewsViewModel(this.dashboardService);
+
   final DashboardService dashboardService;
 
-  Future<void> onReady() async {}
-  Future<void> create() async {
-    dashboardService.addProduct(
-      DashContentResult(),
-    );
-  }
+  List<DashContentResult> news = [];
 
-  Future<void> uploadImage() async {}
+  Future<void> onReady() async {}
+
+  Future<void> fetch() async {
+    news = await dashboardService.fetchNews();
+    notifyListeners();
+  }
+  
 }
