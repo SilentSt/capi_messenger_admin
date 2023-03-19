@@ -52,8 +52,8 @@ class _CreateContentState extends State<CreateContent> {
     return Dialog(
       child: SizedBox(
         width: 450,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        height: MediaQuery.of(context).size.height*.7,
+        child: ListView(
           children: [
             const Text('Создание'),
             const SizedBox(
