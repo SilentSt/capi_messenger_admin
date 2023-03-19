@@ -10,6 +10,7 @@ class DashContentResult with Mappable {
     this.content,
     this.authorId,
     this.previewId,
+    this.previewLink,
   });
 
   final String? id;
@@ -18,4 +19,5 @@ class DashContentResult with Mappable {
   final String? content;
   final String? authorId;
   final String? previewId;
+  final String? previewLink;
 }

@@ -19,28 +19,12 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(
         context.user.dashboardService,
+        context.global.uploadService,
       ),
       onViewModelReady: (viewModel) => viewModel.onReady(),
       builder: (context, viewModel, child) {
         return Scaffold(
-          appBar: AppBar(
-            actions: [
-              CupertinoButton(
-                onPressed: () async {
-                  final res =
-                      await context.global.errorService.showCallbackDialog(
-                    builder: (context) {
-                      return CreateContent(create: viewModel.create);
-                    },
-                  );
-                },
-                padding: EdgeInsets.zero,
-                minSize: 0,
-                child: const Icon(Icons.add),
-              ),
-              const SizedBox(width: 20),
-            ],
-          ),
+          appBar: AppBar(),
           drawer: Drawer(
             child: Column(
               children: [
@@ -57,9 +41,11 @@ class HomeView extends StatelessWidget {
               ],
             ),
           ),
-          body: PageView(children: const [
-            AutoRouter(),
-          ]),
+          body: PageView(
+            children: const [
+              AutoRouter(),
+            ],
+          ),
         );
       },
     );

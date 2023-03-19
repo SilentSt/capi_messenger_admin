@@ -158,15 +158,15 @@ class DashContentResultMapper extends BaseMapper<DashContentResult> {
 
   @override Function get decoder => decode;
   DashContentResult decode(dynamic v) => checked(v, (Map<String, dynamic> map) => fromMap(map));
-  DashContentResult fromMap(Map<String, dynamic> map) => DashContentResult(id: Mapper.i.$getOpt(map, 'id'), title: Mapper.i.$getOpt(map, 'title'), description: Mapper.i.$getOpt(map, 'description'), content: Mapper.i.$getOpt(map, 'content'), authorId: Mapper.i.$getOpt(map, 'authorId'), previewId: Mapper.i.$getOpt(map, 'previewId'));
+  DashContentResult fromMap(Map<String, dynamic> map) => DashContentResult(id: Mapper.i.$getOpt(map, 'id'), title: Mapper.i.$getOpt(map, 'title'), description: Mapper.i.$getOpt(map, 'description'), content: Mapper.i.$getOpt(map, 'content'), authorId: Mapper.i.$getOpt(map, 'authorId'), previewId: Mapper.i.$getOpt(map, 'previewId'), previewLink: Mapper.i.$getOpt(map, 'previewLink'));
 
   @override Function get encoder => (DashContentResult v) => encode(v);
   dynamic encode(DashContentResult v) => toMap(v);
-  Map<String, dynamic> toMap(DashContentResult d) => {if (Mapper.i.$enc(d.id, 'id') != null) 'id': Mapper.i.$enc(d.id, 'id'), if (Mapper.i.$enc(d.title, 'title') != null) 'title': Mapper.i.$enc(d.title, 'title'), if (Mapper.i.$enc(d.description, 'description') != null) 'description': Mapper.i.$enc(d.description, 'description'), if (Mapper.i.$enc(d.content, 'content') != null) 'content': Mapper.i.$enc(d.content, 'content'), if (Mapper.i.$enc(d.authorId, 'authorId') != null) 'authorId': Mapper.i.$enc(d.authorId, 'authorId'), if (Mapper.i.$enc(d.previewId, 'previewId') != null) 'previewId': Mapper.i.$enc(d.previewId, 'previewId')};
+  Map<String, dynamic> toMap(DashContentResult d) => {if (Mapper.i.$enc(d.id, 'id') != null) 'id': Mapper.i.$enc(d.id, 'id'), if (Mapper.i.$enc(d.title, 'title') != null) 'title': Mapper.i.$enc(d.title, 'title'), if (Mapper.i.$enc(d.description, 'description') != null) 'description': Mapper.i.$enc(d.description, 'description'), if (Mapper.i.$enc(d.content, 'content') != null) 'content': Mapper.i.$enc(d.content, 'content'), if (Mapper.i.$enc(d.authorId, 'authorId') != null) 'authorId': Mapper.i.$enc(d.authorId, 'authorId'), if (Mapper.i.$enc(d.previewId, 'previewId') != null) 'previewId': Mapper.i.$enc(d.previewId, 'previewId'), if (Mapper.i.$enc(d.previewLink, 'previewLink') != null) 'previewLink': Mapper.i.$enc(d.previewLink, 'previewLink')};
 
-  @override String stringify(DashContentResult self) => 'DashContentResult(id: ${Mapper.asString(self.id)}, title: ${Mapper.asString(self.title)}, description: ${Mapper.asString(self.description)}, content: ${Mapper.asString(self.content)}, authorId: ${Mapper.asString(self.authorId)}, previewId: ${Mapper.asString(self.previewId)})';
-  @override int hash(DashContentResult self) => Mapper.hash(self.id) ^ Mapper.hash(self.title) ^ Mapper.hash(self.description) ^ Mapper.hash(self.content) ^ Mapper.hash(self.authorId) ^ Mapper.hash(self.previewId);
-  @override bool equals(DashContentResult self, DashContentResult other) => Mapper.isEqual(self.id, other.id) && Mapper.isEqual(self.title, other.title) && Mapper.isEqual(self.description, other.description) && Mapper.isEqual(self.content, other.content) && Mapper.isEqual(self.authorId, other.authorId) && Mapper.isEqual(self.previewId, other.previewId);
+  @override String stringify(DashContentResult self) => 'DashContentResult(id: ${Mapper.asString(self.id)}, title: ${Mapper.asString(self.title)}, description: ${Mapper.asString(self.description)}, content: ${Mapper.asString(self.content)}, authorId: ${Mapper.asString(self.authorId)}, previewId: ${Mapper.asString(self.previewId)}, previewLink: ${Mapper.asString(self.previewLink)})';
+  @override int hash(DashContentResult self) => Mapper.hash(self.id) ^ Mapper.hash(self.title) ^ Mapper.hash(self.description) ^ Mapper.hash(self.content) ^ Mapper.hash(self.authorId) ^ Mapper.hash(self.previewId) ^ Mapper.hash(self.previewLink);
+  @override bool equals(DashContentResult self, DashContentResult other) => Mapper.isEqual(self.id, other.id) && Mapper.isEqual(self.title, other.title) && Mapper.isEqual(self.description, other.description) && Mapper.isEqual(self.content, other.content) && Mapper.isEqual(self.authorId, other.authorId) && Mapper.isEqual(self.previewId, other.previewId) && Mapper.isEqual(self.previewLink, other.previewLink);
 
   @override Function get typeFactory => (f) => f<DashContentResult>();
 }
@@ -179,14 +179,14 @@ extension DashContentResultMapperExtension  on DashContentResult {
 
 abstract class DashContentResultCopyWith<$R> {
   factory DashContentResultCopyWith(DashContentResult value, Then<DashContentResult, $R> then) = _DashContentResultCopyWithImpl<$R>;
-  $R call({String? id, String? title, String? description, String? content, String? authorId, String? previewId});
+  $R call({String? id, String? title, String? description, String? content, String? authorId, String? previewId, String? previewLink});
   $R apply(DashContentResult Function(DashContentResult) transform);
 }
 
 class _DashContentResultCopyWithImpl<$R> extends BaseCopyWith<DashContentResult, $R> implements DashContentResultCopyWith<$R> {
   _DashContentResultCopyWithImpl(DashContentResult value, Then<DashContentResult, $R> then) : super(value, then);
 
-  @override $R call({Object? id = $none, Object? title = $none, Object? description = $none, Object? content = $none, Object? authorId = $none, Object? previewId = $none}) => $then(DashContentResult(id: or(id, $value.id), title: or(title, $value.title), description: or(description, $value.description), content: or(content, $value.content), authorId: or(authorId, $value.authorId), previewId: or(previewId, $value.previewId)));
+  @override $R call({Object? id = $none, Object? title = $none, Object? description = $none, Object? content = $none, Object? authorId = $none, Object? previewId = $none, Object? previewLink = $none}) => $then(DashContentResult(id: or(id, $value.id), title: or(title, $value.title), description: or(description, $value.description), content: or(content, $value.content), authorId: or(authorId, $value.authorId), previewId: or(previewId, $value.previewId), previewLink: or(previewLink, $value.previewLink)));
 }
 
 class DashContentModelMapper extends BaseMapper<DashContentModel> {

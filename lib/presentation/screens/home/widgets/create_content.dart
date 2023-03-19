@@ -16,7 +16,7 @@ class CreateContent extends StatefulWidget {
     required String title,
     required String description,
     required String content,
-    required Uint8List bytes,
+    required XFile file,
   }) create;
 
   @override
@@ -62,7 +62,11 @@ class _CreateContentState extends State<CreateContent> {
             if (bytes != null)
               SizedBox(
                 width: 400,
-                child: InkWell(onTap: pickImage, child: Image.memory(bytes!)),
+                height: 400,
+                child: InkWell(
+                  onTap: pickImage,
+                  child: Image.memory(bytes!),
+                ),
               )
             else
               CupertinoButton(
@@ -146,13 +150,13 @@ class _CreateContentState extends State<CreateContent> {
                   flex: 1,
                   child: AppTextButton(
                     onTap: () {
-                      if (bytes == null) return;
+                      if (image == null) return;
 
                       widget.create(
                         content: content.text,
                         title: title.text.trim(),
                         description: description.text.trim(),
-                        bytes: bytes!,
+                        file: image!,
                       );
                       Navigator.pop(context);
                     },
