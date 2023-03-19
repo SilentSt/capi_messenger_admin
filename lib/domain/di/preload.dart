@@ -12,8 +12,10 @@ class PreloadDependency extends AppDependency {
 
   late final LocalAuthDataSource _localAuthDS;
   late final ChopperClient _client;
+  late final ChopperClient _authClient;
 
   ChopperClient get client => _client;
+  ChopperClient get authClient => _authClient;
 
   LocalAuthDataSource get localAuthDS => _localAuthDS;
 
@@ -25,10 +27,19 @@ class PreloadDependency extends AppDependency {
         AuthInterceptor(_localAuthDS),
       ],
       baseUrl: Uri.parse(
-          'http://capi.sbeusilent.space'), //TODO(whiskas4): change url
+        'http://capi.sbeusilent.space',
+      ),
       converter: JsonMappableConverter(),
+      errorConverter: JsonMappableConverter(),
     );
-
+    _authClient = ChopperClient(
+      interceptors: [
+        AuthInterceptor(_localAuthDS),
+      ],
+      baseUrl: Uri.parse('https://auth.capi.shitposting.team/api/v1/'),
+      converter: JsonMappableConverter(),
+      errorConverter: JsonMappableConverter(),
+    );
     await _localAuthDS.init();
   }
 

@@ -20,7 +20,6 @@ class AuthService extends AppService {
 
   @override
   Future<void> init() async {
-    LocalAuthDataSourceImpl.currentState.value = AuthState.authorized;
     LocalAuthDataSourceImpl.currentState.addListener(authListener);
     await _lds.init();
   }

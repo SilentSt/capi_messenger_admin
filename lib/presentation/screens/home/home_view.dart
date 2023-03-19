@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:template/domain/di/global_dependency.dart';
 import 'package:template/domain/di/user_dependency.dart';
+import 'package:template/gen/colors.gen.dart';
 import 'package:template/presentation/app/app.dart';
 import 'package:template/presentation/navigation/app_router.dart';
 import 'package:template/presentation/screens/home/home_vm.dart';
-import 'package:template/presentation/screens/home/widgets/create_content.dart';
 import 'package:template/presentation/theme/app_typography.dart';
+import 'package:template/presentation/widgets/app_button.dart';
 import 'package:template/presentation/widgets/app_text_button.dart';
 
 class HomeView extends StatelessWidget {
@@ -27,16 +27,41 @@ class HomeView extends StatelessWidget {
           appBar: AppBar(),
           drawer: Drawer(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppTextButton(
-                  onTap: () => App.router.navigate(const NewsViewRoute()),
-                  text: 'Новости',
-                  textStyle: AppTypography.sf.black.s26,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: AppTextButton(
+                        onTap: () => App.router.navigate(const NewsViewRoute()),
+                        text: 'Новости',
+                        textStyle: AppTypography.sf.black.s26,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: AppTextButton(
+                        onTap: () =>
+                            App.router.navigate(const ProductsViewRoute()),
+                        text: 'Продукты',
+                        textStyle: AppTypography.sf.black.s26,
+                      ),
+                    ),
+                  ],
                 ),
-                AppTextButton(
-                  onTap: () => App.router.navigate(const ProductsViewRoute()),
-                  text: 'Продукты',
-                  textStyle: AppTypography.sf.black.s26,
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SizedBox(
+                    height: 50,
+                    child: AppButton(
+                      onTap: context.global.authService.logout,
+                      buttonColor: ColorName.red,
+                      text: 'Выйти',
+                    ),
+                  ),
                 ),
               ],
             ),

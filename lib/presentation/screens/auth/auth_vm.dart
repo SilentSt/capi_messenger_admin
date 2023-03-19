@@ -13,10 +13,6 @@ class AuthViewModel extends BaseViewModel {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
-  final TextEditingController loginController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final PageController stateController = PageController();
 
   bool saveData = false;
   String? session;
@@ -28,9 +24,14 @@ class AuthViewModel extends BaseViewModel {
 
   Future<void> signIn() async {
     setBusy(true);
+    String phone = phoneController.text.trim();
+
+    if (phone.startsWith('8')) {
+      phone = phone.replaceFirst('8', '+7');
+    }
     session = await authService.signin(
       dto: SignInDto(
-        phone: phoneController.text,
+        phone: phone,
         password: passwordController.text,
       ),
     );
@@ -49,19 +50,6 @@ class AuthViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  Future<void> signUp() async {
-    setBusy(true);
-    await authService.signup(
-      SignUpDto(
-        login: loginController.text,
-        phone: phoneController.text,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-      ),
-    );
-    setBusy(false);
-  }
-
   void swapDataSave(bool? value) {
     saveData = value ?? saveData;
     notifyListeners();
@@ -71,7 +59,6 @@ class AuthViewModel extends BaseViewModel {
   void dispose() {
     phoneController.dispose();
     passwordController.dispose();
-    stateController.dispose();
     super.dispose();
   }
 }
